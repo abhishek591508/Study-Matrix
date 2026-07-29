@@ -36,6 +36,7 @@ exports.resetPasswordToken = async (req, res) => {
             success:true,
             message:'Email sent successfully, please check email and change pwd',
         });
+        //I have sended the email and the email contains a ResetPassword link, link contains the token
     }
     catch(error) {
         console.log(error);
