@@ -8,7 +8,7 @@ exports.createCourse = async (req, res) => {
     try {
 
         //fetch data 
-        const {courseName, courseDescription, whatYoutWillLearn, price, tag} = req.body;
+        const {courseName, courseDescription, whatYoutWillLearn, price, tag} = req.body;//tag is a id here
 
         //get thumbnail
         const thumbnail = req.files.thumbnailImage;
@@ -47,6 +47,13 @@ exports.createCourse = async (req, res) => {
         const thumbnailImage = await uploadImageToCloudinary(thumbnail, process.env.FOLDER_NAME);
 
         //create an entry for new Course
+        // (Object Property Shorthand)
+        // Since the key name and the variable name are the same, JavaScript allows me to write:
+        // const obj = {
+        //     courseName,
+        //     courseDescription,
+        //     price,
+        // };
         const newCourse = await Course.create({
             courseName,
             courseDescription,
@@ -70,6 +77,16 @@ exports.createCourse = async (req, res) => {
 
         //update the TAG ka schema 
         //TODO: HW
+        await Tag.findByIdAndUpdate(//upar wala chipka diya
+            {_id: tag},
+            {
+                $push: {
+                    course: newCourse._id,
+                }
+            },
+            {new:true},
+        );
+
 
         //return response
         return res.status(200).json({
