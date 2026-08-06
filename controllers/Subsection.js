@@ -1,106 +1,57 @@
-const SubSection = require("../models/SubSection");
+// Import necessary modules
 const Section = require("../models/Section");
+const SubSection = require("../models/Subsection");
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
 
-//create SubSection
-
+// Create a new sub-section for a given section
 exports.createSubSection = async (req, res) => {
-    try{
-            //fecth data from Req body
-            const {sectionId, title, timeDuration, description} = req.body;
-            //extract file/video
-            const video  = req.files.videoFile;
-            //validation
-            if(!sectionId || !title || !timeDuration || !description || !video) {
-                return res.status(400).json({
-                    success:false,
-                    message:'All fields are required',
-                });
-            }
-            //upload video to cloudinary
-            const uploadDetails = await uploadImageToCloudinary(video, process.env.FOLDER_NAME);
-            //create a sub-section
-            const subSectionDetails = await SubSection.create({
-                title:title,
-                timeDuration:timeDuration,
-                description:description,
-                videoUrl:uploadDetails.secure_url,
-            })
-            //update section with this sub section ObjectId
-            const updatedSection = await Section.findByIdAndUpdate({_id:sectionId},
-                                                        {$push:{
-                                                            subSection:subSectionDetails._id,
-                                                        }},
-                                                        {new:true});
+	try {
+		// Extract necessary information from the request body
+		const { sectionId, title, timeDuration, description } = req.body;
+		const video = req.files.videoFile;
 
-            //HW: log updated section here, after adding populate query
-            const populatedSection = updatedSection.populate("subSection");
-            console.log(populatedSection);
+		// Check if all necessary fields are provided
+		if (!sectionId || !title || !timeDuration || !description || !video) {
+			return res
+				.status(404)
+				.json({ success: false, message: "All Fields are Required" });
+		}
 
-            //return response
-            return res.status(200).json({
-                succcess:true,
-                message:'Sub Section Created Successfully',
-                updatedSection,
-            });
-    }
-    catch(error) {
-        return res.status(500).json({
-            success:false,
-            message:"Internal Server Error",
-            error:error.message,
-        })
-    }
+		// Upload the video file to Cloudinary
+		const uploadDetails = await uploadImageToCloudinary(
+			video,
+			process.env.FOLDER_NAME
+		);
+
+		// Create a new sub-section with the necessary information
+		const SubSectionDetails = await SubSection.create({
+			title: title,
+			timeDuration: timeDuration,
+			description: description,
+			videoUrl: uploadDetails.secure_url,
+		});
+
+		// Update the corresponding section with the newly created sub-section
+		const updatedSection = await Section.findByIdAndUpdate(
+			{ _id: sectionId },
+			{ $push: { subSection: SubSectionDetails._id } },
+			{ new: true }
+		).populate("subSection");
+
+		// Return the updated section in the response
+		return res.status(200).json({ success: true, data: updatedSection });
+	} catch (error) {
+		// Handle any errors that may occur during the process
+		console.error("Error creating new sub-section:", error);
+		return res.status(500).json({
+			success: false,
+			message: "Internal server error",
+			error: error.message,
+		});
+	}
 };
 
+
 //HW: updateSubSection
-exports.updateSubSection = async (req,res)=>{
-    try{
-            //get the details
-            const {subSectionId, title, description, timeDuration} = req.body;
-            const video = req.files.videoFile;
-            
-            //validation
-            if(!subSectionId || !title || !description || !timeDuration || !video){
-                return res.status(400).json({
-                    success:true,
-                    message: "All details required"
-                })
-            }
-
-            //upload to cloudinary
-            const uploadedVideo = await uploadImageToCloudinary(video, process.env.FOLDER_NAME);
-            // find by id and update
-            const updatedDetails = await SubSection.findByIdAndUpdate({_id:subSectionId},
-                {
-                    title: title,
-                    description: description,
-                    timeDuration: timeDuration,
-                    videoUrl: uploadedVideo.secure_url
-                },
-                {new:true}
-            )
-            if(!updatedDetails){
-                return res.status(400).json({
-                    success:false,
-                    message: "SubSection not found"
-                })
-            }
-            //return res
-            return res.status(200).json({
-                success:true,
-                message:"Sub section is updated successfully",
-                data: updatedDetails
-            })
-    }
-    catch(error){
-        return res.status(500).json({
-            success:false,
-            message:"Internal server error",
-            error: error.message
-        })
-    }
-
-}
 
 //HW:deleteSubSection
