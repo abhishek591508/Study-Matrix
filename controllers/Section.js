@@ -25,6 +25,15 @@ exports.createSection = async (req, res) => {
                                             {new:true},
                                         );
         //HW: use populate to replace sections/sub-sections both in the updatedCourseDetails
+        // this is done by nested population
+        const populatedCourse = await updatedCourseDetails.populate({
+            path: "courseContent",
+            populate: {
+                path: "subSection"
+            }
+        })//chain population vs nested populationjj
+        console.log(populatedCourse);
+        
         //return response
         return res.status(200).json({
             success:true,
