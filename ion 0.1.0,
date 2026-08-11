@@ -1,0 +1,30 @@
+[33m8cce4ba[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Restructure the project folder-keep src(frontend) and server(backend) in same folder
+[33mc7ae976[m Implement Index.js and Testing all controllers and features (otp, signup, login, additionalDetails, resetPassword, create/show category, create course and delete user)
+[33m6404129[m Add update and delete feature to subSection controller
+[33mff23481[m Add feature of getAverageRating and getAllRatings
+[33med887df[m Add feature of createRatings
+[33m7d121d7[m Add routes for profile OR additional details
+[33m03837a2[m Add routes for user
+[33m1420438[m Add routes for payments
+[33m28419d5[m Add routes for courses
+[33m9e348ec[m Add cloudinary connect function in config
+[33mea48477[m Add feature of GetEnrolledCourses and updateDisplayPicture
+[33m8a26623[m Add getCourseDetails feature in course-controller
+[33me11f7f0[m Correction in the code and structure
+[33meb41666[m Add instance of RazorPay to config
+[33m143c95e[m Convert the previous tag name to Category
+[33m5ad1737[m Create mail sending templates of Enrollment, email verification and password update
+[33m53f4876[m Add veryfy Signature in payments controller
+[33me77eaa3[m Implement feature of capture payment-Payment integration
+[33m3639a26[m Try Nested population in section controller
+[33mbe8d360[m Implement update SubSection functionality in controllers
+[33meef294e[m Add feature of create subSection
+[33meb17dff[m Implement CRUD operations in section controller
+[33m1731792[m Add feature of update and delete profile
+[33m236cdff[m Update tag schema inside create course controller
+[33m900883b[m Add feature of image upload to cloudinary
+[33mb6adca4[m Implement feature of create tag and show tag in controllers
+[33m600ad33[m Implement feature of create course
+[33m563e9fd[m Add Functionality of change password in controllers/auth
+[33m4d1acc4[m Add Authentication and Authorization
+[33md1f5f79[m first commit create models and schema
