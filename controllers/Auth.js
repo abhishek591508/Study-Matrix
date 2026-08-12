@@ -13,6 +13,7 @@ require("dotenv").config();
 exports.signup = async (req, res) => {
 	try {
 		// Destructure fields from the request body
+		console.log("Reached 1");
 		const {
 			firstName,
 			lastName,
@@ -45,6 +46,7 @@ exports.signup = async (req, res) => {
 					"Password and Confirm Password do not match. Please try again.",
 			});
 		}
+		console.log("Reached 2");
 
 		// Check if user already exists
 		const existingUser = await User.findOne({ email });
@@ -71,9 +73,11 @@ exports.signup = async (req, res) => {
 				message: "The OTP is not valid",
 			});
 		}
-
+		console.log("Reached 3");
 		// Hash the password
 		const hashedPassword = await bcrypt.hash(password, 10);
+
+		console.log("Reached 4");
 
 		// Create the user
 		let approved = "";
