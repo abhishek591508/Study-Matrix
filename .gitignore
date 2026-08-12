@@ -1,2 +1,4 @@
 node_modules
 .env
+src/assets/Images/
+#just to avoid the upload of heavy images on github to keep gitPush/gitlone faster
