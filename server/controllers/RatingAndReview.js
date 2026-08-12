@@ -87,9 +87,6 @@ exports.getAverageRating = async (req, res) => {
                     }
                 }
             ])
-            //in this particular aggregation, the result will contain at most one element.
-            // The reason MongoDB still returns an array is because $group is part of the 
-            // aggregation pipeline, and aggregation pipelines are designed to return a set of documents, i.e. an array.
 
             //return rating
             if(result.length > 0) {
@@ -127,7 +124,6 @@ exports.getAllRating = async (req, res) => {
                                     .populate({
                                         path:"user",
                                         select:"firstName lastName email image",
-                                        //populate user but do not select all the values - only select these 4 values
                                     })
                                     .populate({
                                         path:"course",

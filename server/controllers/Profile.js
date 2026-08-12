@@ -87,8 +87,6 @@ exports.getAllUserDetails = async (req, res) => {
 	}
 };
 
-//updateDisplayPicture
-
 exports.updateDisplayPicture = async (req, res) => {
     try {
       const displayPicture = req.files.displayPicture
