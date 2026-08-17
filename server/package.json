@@ -1,16 +1,18 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
+	"name": "studynotion-backend",
+	"version": "1.0.0",
+	"description": "studynotion-backend",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js",
+		"dev": "nodemon index.js"
+	},
+	"keywords": [
+		"studynotion-backend"
+	],
+	"author": "Saikat Mukherjee",
+	"license": "ISC",
+	"dependencies": {
 		"bcrypt": "^5.1.0",
 		"bcryptjs": "^2.4.3",
 		"cloudinary": "^1.36.4",
